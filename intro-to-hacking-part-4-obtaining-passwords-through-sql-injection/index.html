@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en-US"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Intro to Hacking Part 4 – Obtaining Passwords Through SQL Injection | Pedantic Posts</title><link rel="dns-prefetch" href="//fonts.googleapis.com"><link rel="dns-prefetch" href="//s.w.org"><link rel="stylesheet" id="wp-block-library-css" href="http://pedanticposts.com/wp-includes/css/dist/block-library/style.min.css" type="text/css" media="all"><link rel="stylesheet" id="fictive-style-css" href="http://pedanticposts.com/wp-content/themes/fictive/style.css" type="text/css" media="all"><link rel="stylesheet" id="fictive-open-sans-css" href="http://fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C700italic%2C400%2C300%2C700&ver=5.0.3" type="text/css" media="all"><link rel="stylesheet" id="fictive-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter%3A400%2C700%2C400italic&subset=latin%2Clatin-ext&ver=5.0.3" type="text/css" media="all"><link rel="stylesheet" id="genericons-css" href="http://pedanticposts.com/wp-content/themes/fictive/genericons/genericons.css" type="text/css" media="all"><script type="text/javascript" src="http://pedanticposts.com/wp-includes/js/jquery/jquery.js"></script><script type="text/javascript" src="http://pedanticposts.com/wp-includes/js/jquery/jquery-migrate.min.js"></script><style type="text/css">
+			.site-title a {
+			color: #15517b;
+		}
+		</style><style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url("http://pedanticposts.com/wp-content/uploads/2016/07/Background-E-300x300.png"); background-position: left top; background-size: auto; background-repeat: repeat; background-attachment: scroll; }
+</style></head><body class="post-template-default single single-post postid-1325 single-format-standard custom-background has-header-image">
+<div id="page" class="hfeed site">
+
+	<header id="masthead" class="site-header" role="banner"><a href="http://pedanticposts.com/" rel="home">
+			<img src="http://pedanticposts.com/wp-content/uploads/2016/07/Final-Logo-Pedantic-Postsv3-1smaller.png" width="287" height="290" alt="" class="header-image"></a>
+				<div class="site-branding">
+							<div class="header-avatar">
+					<a href="http://pedanticposts.com/" rel="home">
+						<img src="http://gravatar.com/avatar/562b9bd217f747397e71922590a6aebd/?s=140&d=mm" width="70" height="70" alt=""></a>
+				</div>
+						<h1 class="site-title"><a href="http://pedanticposts.com/" rel="home">Pedantic Posts</a></h1>
+			<h2 class="site-description"> </h2>
+					</div>
+
+		<div class="menu-toggles clear">
+							<h1 id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Menu</span></h1>
+									<h1 id="search-toggle" class="menu-toggle"><span class="screen-reader-text">Search</span></h1>
+		</div>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation"><a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+							<div class="menu-primary-menu-container"><ul id="menu-primary-menu" class="menu"><li id="menu-item-15" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-15"><a href="http://pedanticposts.com">Home</a></li>
+<li id="menu-item-2075" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2075"><a href="http://pedanticposts.com/start-here-2/">Start Here</a></li>
+<li id="menu-item-2074" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2074"><a href="http://pedanticposts.com/about-2/">About Me</a></li>
+<li id="menu-item-2076" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2076"><a href="http://pedanticposts.com/books/">Book List</a></li>
+</ul></div>					</nav><div id="site-search" class="header-search">
+			<form role="search" method="get" class="search-form" action="http://pedanticposts.com/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search …" value="" name="s"></label>
+				<input type="submit" class="search-submit" value="Search"></form>		</div>
+	</header><div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main"><div class="hentry-wrapper">
+		<article id="post-1325" class="post-1325 post type-post status-publish format-standard has-post-thumbnail hentry category-nedantic"><header class="entry-header"><h1 class="entry-title">Intro to Hacking Part 4 – Obtaining Passwords Through SQL Injection</h1>						<div class="entry-meta">
+				<span class="post-date"><a href="http://pedanticposts.com/intro-to-hacking-part-4-obtaining-passwords-through-sql-injection/" title="9:07 pm" rel="bookmark"><time class="entry-date" datetime="2011-03-23T21:07:16+00:00">March 23, 2011</time></a></span><span class="byline"><span class="author vcard"><a class="url fn n" href="http://pedanticposts.com/author/bskinny129/" title="View all posts by bskinny129" rel="author">bskinny129</a></span></span>							</div>
+		</header><div class="entry-content">
+			<p><img alt="" src="http://farm4.static.flickr.com/3440/3934149341_e54d02df06.jpg" title="chip0tle" class="alignnone" width="500" height="375"><br><em>This is part 4 of the Intro to Hacking series. Check our Parts <a href="http://pedanticposts.com/intro-to-hacking-real-hacker-stories-are-even-better-than-the-movies/" target="_blank">1</a> and <a href="http://pedanticposts.com/intro-to-hacking-part-2-more-hacker-stories/" target="_blank">2</a> for interesting hacker stories, and <a href="http://pedanticposts.com/intro-to-hacking-part-3-how-passwords-are-stored/" target="_blank">Part 3</a> for an introduction to how passwords are stored.</em></p>
+<p>We established in <a href="http://pedanticposts.com/intro-to-hacking-part-3-how-passwords-are-stored/" target="_blank">Part 3</a> that user passwords are stored in a database, but they are hashed – meaning they are stored as gobbledygook which you can’t possibly translate into the original password. Before I proceed to tell you about techniques for transforming the gobbledygook back to the password, I think it is important to establish how a hacker would obtain a hashed passwords from the database.</p>
+<p>The most common technique is called a SQL Injection Attack. First, a little background on what SQL is. It’s a querying language for databases. Think of a database as a huge Excel document – you have rows and columns, and can potentially many different sheets all within the same Excel document. Databases have rows and columns, the sheets are called tables, and the Excel document itself is called a database. But databases are typically much larger than Excel documents – with millions of rows in some tables and potentially hundreds or thousands of tables.</p>
+<p>The querying language allows you to navigate these behemoths and find the information you are looking for. Imagine we have a table (sheet in Excel) called — USERS with columns — USER_ID, NAME, EMAIL, and PASSWORD. A simple query would be “show me all users with the first name Brian.” A little more complex “show me all users with the first name Brian and a gmail address.” This example is still simple because all the information is stored in one table – but often the information is completely spread out and you have to navigate the web of tables to find it.</p>
+<p><span id="more-1325"></span>In addition to the — USERS table you might have MENU, INGREDIENTS, ORDER_HISTORY, ORDER_DETAIL and ORDER_DETAIL_INGREDIENTS tables. I’m thinking of Chipotle’s online ordering system here because honestly, when am I not thinking about Chipotle? MENU has rows like burrito, medium soda, and salad. INGREDIENTS has cheese, guac, black beans, etc. ORDER_HISTORY has the user that ordered, their price, and time. ORDER_DETAIL has the menu items part of a particular order. And ORDER_DETAIL_INGREDIENTS has the individual ingredients that went into each menu item of a particular order. With all of this information you can build some pretty complex queries: “give me all the people with gmail addresses that have used Chipotle’s online ordering system 5 times in the last 3 months, with at least one order over $20, who have ordered guac on at least one item every time, and never pinto beans.”</p>
+<p>What does this have to do with hacking? You have to know the basics of SQL databases to understand SQL injection. This hacking technique involves injecting the hacker’s own SQL code to run against the database. How? Any form, input, or search box on the website is a place where you can type an input that gets translated into SQL. Let’s take that search box in the upper right as an example. Whatever gets entered in that search box is used in the query that searches the database. For example, here is a theoretical search in Pedantic Posts for “plantains”:</p>
+<blockquote><p>SELECT p.ID, p.Title<br>
+FROM Posts p<br>
+WHERE p.Body LIKE ‘%plantains%’ </p></blockquote>
+<p>But you are mischievous. Instead of typing in plantains, you type “‘ UNION SELECT TABLE_CATALOG,<br>
+TABLE_NAME, FROM INFORMATION_SCHEMA.Tables –“. Now the query that gets run against the database is entirely different: </p>
+<blockquote><p>SELECT p.ID, p.Title<br>
+FROM Posts p<br>
+WHERE p.Body LIKE ‘%’ UNION SELECT TABLE_CATALOG,<br>
+TABLE_NAME, FROM INFORMATION_SCHEMA.Tables –%’ </p></blockquote>
+<p>This in theory would return all the posts as well as all the table names in the database. Once the hacker has the table names, they could easily return a list of all the hashed passwords or even start making changes to the data (defacing the website).</p>
+<p>Fortunately WordPress (running this site) is one step ahead of the hackerz and knows to watch out for any funny business whenever accepting query inputs from a user (there are simple ways to protect against SQL injection attacks). But not every website follows the best practices and goes through the necessary safeguards. If you use the same password on just one of these less advanced sites, your password could be hacked, and the secure site compromised as well.<br>
+ </p>
+<hr>
+ 
+<ul><li><a href="http://www.sqlbook.com/SQL/SQL-Injection-Attacks-29.aspx" target="_blank">A</a> <a href="http://www.codeproject.com/KB/database/SqlInjectionAttacks.aspx" target="_blank">bunch</a> <a href="http://www.sqlbook.com/SQL/Defending-against-SQL-Injection-30.aspx" target="_blank">of</a> <a href="http://en.wikipedia.org/wiki/SQL_injection" target="_blank">links</a> <a href="http://pentestmonkey.net/blog/mysql-sql-injection-cheat-sheet/" target="_blank">on</a> <a href="http://archive.cert.uni-stuttgart.de/bugtraq/2005/02/msg00289.html" target="_blank">SQL</a> <a href="http://threatpost.com/en_us/blogs/anatomy-sql-injection-attack-022510" target="_blank">injection</a>. </li>
+<li>A story of SQL injection on the ConnectU site (the Harvard rowing guys weren’t so great at security). No one at Stanford used the password “password”!</li></ul><p style="font-size: 8pt;">Photo: <a href="http://www.flickr.com/photos/jronaldlee/3934149341/" target="_blank">James Lee</a></p>
+					</div>
+
+		<footer class="entry-footer entry-meta"></footer></article></div>
+				<nav class="navigation post-navigation" role="navigation"><h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+			<div class="nav-previous"><a href="http://pedanticposts.com/intro-to-hacking-part-3-how-passwords-are-stored/" rel="prev"><span class="meta-nav screen-reader-text">←</span></a></div><div class="nav-next"><a href="http://pedanticposts.com/intro-to-hacking-part-5-a-non-technical-guide-to-password-cracking/" rel="next"><span class="meta-nav screen-reader-text">→</span></a></div>		</div>
+	</nav><div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			2 thoughts on “<span>Intro to Hacking Part 4 – Obtaining Passwords Through SQL Injection</span>”		</h2>
+
+		
+		<ol class="comment-list"><li id="comment-196" class="comment even thread-even depth-1">
+		<article id="div-comment-196" class="comment-body"><footer class="comment-meta"><div class="comment-author vcard">
+					<span class="avatar-wrapper"><img alt="" src="http://2.gravatar.com/avatar/8630ebfbb9c07e9a67173c1151197cf3?s=70&d=mm&r=g" srcset="http://2.gravatar.com/avatar/8630ebfbb9c07e9a67173c1151197cf3?s=140&d=mm&r=g 2x" class="avatar avatar-70 photo" height="70" width="70"></span>					<cite class="fn">mike</cite> <span class="says">says:</span>				</div>
+
+							</footer><div class="comment-content">
+				<p>Nice example. Thats why when I accept user inputs in my web apps I like to escape them before sending them off to be processed.</p>
+			</div>
+
+			<div class="comment-metadata">
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://pedanticposts.com/intro-to-hacking-part-4-obtaining-passwords-through-sql-injection/" onclick='return addComment.moveForm( "div-comment-196", "196", "respond", "1325" )' aria-label="Reply to mike">Reply</a></div>				<a href="http://pedanticposts.com/intro-to-hacking-part-4-obtaining-passwords-through-sql-injection/#comment-196">
+					<time datetime="2011-04-12T16:10:54+00:00"><span class="post-date">April 12, 2011 at 4:10 pm</span>
+					</time></a>
+							</div>
+		</article></li>
+
+	<li id="comment-197" class="comment byuser comment-author-bskinny129 bypostauthor odd alt thread-odd thread-alt depth-1">
+		<article id="div-comment-197" class="comment-body"><footer class="comment-meta"><div class="comment-author vcard">
+					<span class="avatar-wrapper"><img alt="" src="http://2.gravatar.com/avatar/562b9bd217f747397e71922590a6aebd?s=70&d=mm&r=g" srcset="http://2.gravatar.com/avatar/562b9bd217f747397e71922590a6aebd?s=140&d=mm&r=g 2x" class="avatar avatar-70 photo" height="70" width="70"></span>					<cite class="fn">Skinner</cite> <span class="says">says:</span>				</div>
+
+							</footer><div class="comment-content">
+				<p>Hilarious and related comic:  <a href="http://xkcd.com/327/" rel="nofollow">http://xkcd.com/327/</a></p>
+			</div>
+
+			<div class="comment-metadata">
+				<div class="reply"><a rel="nofollow" class="comment-reply-link" href="http://pedanticposts.com/intro-to-hacking-part-4-obtaining-passwords-through-sql-injection/" onclick='return addComment.moveForm( "div-comment-197", "197", "respond", "1325" )' aria-label="Reply to Skinner">Reply</a></div>				<a href="http://pedanticposts.com/intro-to-hacking-part-4-obtaining-passwords-through-sql-injection/#comment-197">
+					<time datetime="2011-06-01T20:43:44+00:00"><span class="post-date">June 1, 2011 at 8:43 pm</span>
+					</time></a>
+							</div>
+		</article></li>
+		</ol><div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/intro-to-hacking-part-4-obtaining-passwords-through-sql-injection/#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="http://pedanticposts.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+				<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"><input type="hidden" name="comment_post_ID" value="1325" id="comment_post_ID"><input type="hidden" name="comment_parent" id="comment_parent" value="0"></p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="0bd8aa5975"></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="181"></p>			</form>
+			</div>
+	
+</div>
+
+		
+		</main></div>
+
+	</div>
+
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="site-info">
+			<a href="http://wordpress.org/">Proudly powered by WordPress</a>
+			<span class="sep"> | </span>
+			Theme: Fictive by <a href="https://wordpress.com/themes/" rel="designer">WordPress.com</a>.		</div>
+	</footer></div>
+
+<script type="text/javascript" src="http://pedanticposts.com/wp-content/themes/fictive/js/fictive.js"></script><script type="text/javascript" src="http://pedanticposts.com/wp-content/themes/fictive/js/skip-link-focus-fix.js"></script><script async="async" type="text/javascript" src="http://pedanticposts.com/wp-content/plugins/akismet/_inc/form.js"></script></body></html>

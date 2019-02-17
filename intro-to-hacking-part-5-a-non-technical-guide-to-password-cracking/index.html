@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en-US"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Intro to Hacking Part 5 – A Non-Technical Guide to Password Cracking | Pedantic Posts</title><link rel="dns-prefetch" href="//fonts.googleapis.com"><link rel="dns-prefetch" href="//s.w.org"><link rel="stylesheet" id="wp-block-library-css" href="http://pedanticposts.com/wp-includes/css/dist/block-library/style.min.css" type="text/css" media="all"><link rel="stylesheet" id="fictive-style-css" href="http://pedanticposts.com/wp-content/themes/fictive/style.css" type="text/css" media="all"><link rel="stylesheet" id="fictive-open-sans-css" href="http://fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C700italic%2C400%2C300%2C700&ver=5.0.3" type="text/css" media="all"><link rel="stylesheet" id="fictive-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter%3A400%2C700%2C400italic&subset=latin%2Clatin-ext&ver=5.0.3" type="text/css" media="all"><link rel="stylesheet" id="genericons-css" href="http://pedanticposts.com/wp-content/themes/fictive/genericons/genericons.css" type="text/css" media="all"><script type="text/javascript" src="http://pedanticposts.com/wp-includes/js/jquery/jquery.js"></script><script type="text/javascript" src="http://pedanticposts.com/wp-includes/js/jquery/jquery-migrate.min.js"></script><style type="text/css">
+			.site-title a {
+			color: #15517b;
+		}
+		</style><style type="text/css" id="custom-background-css">
+body.custom-background { background-image: url("http://pedanticposts.com/wp-content/uploads/2016/07/Background-E-300x300.png"); background-position: left top; background-size: auto; background-repeat: repeat; background-attachment: scroll; }
+</style></head><body class="post-template-default single single-post postid-1357 single-format-standard custom-background has-header-image">
+<div id="page" class="hfeed site">
+
+	<header id="masthead" class="site-header" role="banner"><a href="http://pedanticposts.com/" rel="home">
+			<img src="http://pedanticposts.com/wp-content/uploads/2016/07/Final-Logo-Pedantic-Postsv3-1smaller.png" width="287" height="290" alt="" class="header-image"></a>
+				<div class="site-branding">
+							<div class="header-avatar">
+					<a href="http://pedanticposts.com/" rel="home">
+						<img src="http://gravatar.com/avatar/562b9bd217f747397e71922590a6aebd/?s=140&d=mm" width="70" height="70" alt=""></a>
+				</div>
+						<h1 class="site-title"><a href="http://pedanticposts.com/" rel="home">Pedantic Posts</a></h1>
+			<h2 class="site-description"> </h2>
+					</div>
+
+		<div class="menu-toggles clear">
+							<h1 id="menu-toggle" class="menu-toggle"><span class="screen-reader-text">Menu</span></h1>
+									<h1 id="search-toggle" class="menu-toggle"><span class="screen-reader-text">Search</span></h1>
+		</div>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation"><a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+							<div class="menu-primary-menu-container"><ul id="menu-primary-menu" class="menu"><li id="menu-item-15" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-15"><a href="http://pedanticposts.com">Home</a></li>
+<li id="menu-item-2075" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2075"><a href="http://pedanticposts.com/start-here-2/">Start Here</a></li>
+<li id="menu-item-2074" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2074"><a href="http://pedanticposts.com/about-2/">About Me</a></li>
+<li id="menu-item-2076" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2076"><a href="http://pedanticposts.com/books/">Book List</a></li>
+</ul></div>					</nav><div id="site-search" class="header-search">
+			<form role="search" method="get" class="search-form" action="http://pedanticposts.com/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search …" value="" name="s"></label>
+				<input type="submit" class="search-submit" value="Search"></form>		</div>
+	</header><div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main" role="main"><div class="hentry-wrapper">
+		<article id="post-1357" class="post-1357 post type-post status-publish format-standard hentry category-nedantic"><header class="entry-header"><h1 class="entry-title">Intro to Hacking Part 5 – A Non-Technical Guide to Password Cracking</h1>						<div class="entry-meta">
+				<span class="post-date"><a href="http://pedanticposts.com/intro-to-hacking-part-5-a-non-technical-guide-to-password-cracking/" title="11:07 pm" rel="bookmark"><time class="entry-date" datetime="2011-04-04T23:07:26+00:00">April 4, 2011</time></a></span><span class="byline"><span class="author vcard"><a class="url fn n" href="http://pedanticposts.com/author/bskinny129/" title="View all posts by bskinny129" rel="author">bskinny129</a></span></span>							</div>
+		</header><div class="entry-content">
+			<p><img alt="" src="http://farm4.static.flickr.com/3041/2768391365_1bab748eb2.jpg" title="clouds" class="alignnone" width="500" height="375"><br><em>We have established now passwords are stored in <a href="http://pedanticposts.com/intro-to-hacking-part-3-how-passwords-are-stored/" target="_blank">Part 3</a> and the most common ways of extracting hashed passwords in <a href="http://pedanticposts.com/intro-to-hacking-part-4-obtaining-passwords-through-sql-injection/" target="_blank">Part 4</a>. In Part 5 we will examine how to crack a hashed password.</em></p>
+<p>After the previous post you likely have a short list of random characters that you want to translate into the password the user actually typed into the computer. In other words, crack the password. How the heck do you do it? Is it even possible given the impressiveness of the hash algorithms? Yes it is and there are a number of tools that will even do it for you!</p>
+<p><strong>Determining the hash algorithm</strong><br>
+The first step is to figure out what algorithm was used to convert the typed in password to gobbledygook. In theory, this should be incredibly difficult. There are literally endless ways that it could be done. In practice though it is quite easy – just about everyone uses the same couple algorithms!</p>
+<p>Most websites are going to do what everyone else does – if the hash algorithm works well enough for others, it must be pretty good. In fact, hardly any small website owner is going to put any thought into this – they are just going to use pre-built solutions. Most pre-built solutions and programming languages have the same hash algorithms built in. MD5 by far the most common and SHA-1 is gaining in popularity. </p>
+<p>Not to oversimplify things, odds are if your hash is 32 characters long, you’re looking at DM5. 40 characters long, SHA1.</p>
+<p><strong>Let’s crack 94804c0a8c1771947cfba8ec3e0a4c30</strong><br>
+The first step is determining the hash algorithm used. <span id="more-1357"></span>It is 32 characters long and came from a not technically advanced site so we are going to assume it is DM5. But in case it is not, there is also an <a href="https://github.com/kaerast/" target="_blank">open source tool</a> on <a href="https://github.com/" target="_blank">GitHub</a> we can use to figure out all the possible hash algorithms that could have been used. Simply type in the URL “http://hash.heroku.com/hash/” + the hashed password you want to crack and it will report back all the possible algorithms. Here it is for our example.</p>
+<p><strong>Check to see if it is a low hanging fruit</strong><br>
+For the most popular hash algorithms there are plenty of online tools where you can enter a hashed password and it will crack it. If the password is “weak” that is … this method probably won’t work if there are numbers or special characters in the password. Luckily most passwords are all lowercase. Here is an excellent online tool. Entering our hashed password into the search box provides the following result:</p>
+<p><a href="http://pedanticposts.com/wordpress/wp-content/uploads/2011/04/crack.jpg"><img class="aligncenter size-full wp-image-1368" title="password crack" src="http://pedanticposts.com/wordpress/wp-content/uploads/2011/04/crack.jpg" alt="" width="498" height="357"></a></p>
+<p>Well that was easy: the password was carebear. But how does the tool work? And what do I do if the tool doesn’t know the password?</p>
+<p><strong>Rainbow Tables</strong><br>
+One way to crack passwords is to generate every possible password and store the corresponding hash value. So we would enter “carebear” = “94804c0a8c1771947cfba8ec3e0a4c30” in our database. Once we have all the passwords calculated, it is as simple as doing a reverse look-up to crack the password. But is this feasible? With 26 letters in the alphabet and passwords less than 10 characters, this would be 26<span style="position: relative; bottom: 0.5em">8</span> possible passwords. MD5 hashes are 32 characters long or 32 bytes (made up of 256 1’s and 0’s). 26<span style="position: relative; bottom: 0.5em">8</span> passwords x 32 bytes is 6 terabytes of data.</p>
+<p>That is certainly a lot of hard drive space, but not out of the realm of possibility. If your rainbow tables take advantage of the fact that you don’t have to store repetitive information, you can greatly reduce the amount of storage space required. You can download the complete set of lowercase passwords with numbers of a length up to 8 for less than 40 GB of space. <a href="http://freerainbowtables.mirror.garr.it/mirrors/freerainbowtables/md5/" target="_blank">Here</a> are a bunch of MD5 rainbow tables that you can download. </p>
+<p><strong>Brute Force</strong><br>
+The other approach is to compute the hashed password values on the fly without storing them. This approach is obviously likely to take longer, but is quickly becoming the preferred approach. </p>
+<p>Amazon’s <a href="http://aws.amazon.com/ec2/" target="_blank">EC2</a> cloud services provide cheap processing power to the masses (and the best part is that you only have to pay for what you use). This comes out to cents per minute. Considering that you can calculate hundreds of thousands of password hashes a second, it shouldn’t take too long or too much money to crack a password. Here is a story of a white hat hacker than payed Amazon $1.68 to hack his neighbor’s WiFi password. </p>
+<p><strong>Concluding Thoughts</strong><br>
+I hope I have shown that it is fairly easy to crack a password. The next post I’ll cover some things that you should be doing to protect your passwords and your websites.<br>
+ </p>
+<hr>
+ 
+<ul><li><a href="http://en.wikipedia.org/wiki/MD5" target="_blank">MD5</a> and <a href="http://en.wikipedia.org/wiki/SHA-1" target="_blank">SHA-1</a> wiki pages</li>
+<li><a href="http://www.naiveamerican.org/2011/02/28/md5-rainbow-tables/" target="_blank">Here</a> is why it is not possible to have a rainbow table that can cover every possible password</li>
+<li><a href="http://stackoverflow.com/questions/1442422/determine-hash-algorithm" target="_blank">Here</a> is a question about figuring out the hash algorithm</li>
+<li><a href="http://codahale.com/how-to-safely-store-a-password/" target="_blank">Here</a> is a guy that says it is possible to do 500 billion candidate passwords a second on Amazon EC2. Wow that is fast!</li>
+<li>Does anyone know the percent of websites that use MD5? I couldn’t find any numbers out there but would imagine it is way north of 50%.</li>
+</ul><p style="font-size: 8pt;">Photo: <a href="http://www.flickr.com/photos/mnsc/2768391365/" target="_blank">Mattias</a></p>
+					</div>
+
+		<footer class="entry-footer entry-meta"></footer></article></div>
+				<nav class="navigation post-navigation" role="navigation"><h1 class="screen-reader-text">Post navigation</h1>
+		<div class="nav-links">
+			<div class="nav-previous"><a href="http://pedanticposts.com/intro-to-hacking-part-4-obtaining-passwords-through-sql-injection/" rel="prev"><span class="meta-nav screen-reader-text">←</span></a></div><div class="nav-next"><a href="http://pedanticposts.com/samsonite-and-jumping-the-shark/" rel="next"><span class="meta-nav screen-reader-text">→</span></a></div>		</div>
+	</nav><div id="comments" class="comments-area">
+
+	
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/intro-to-hacking-part-5-a-non-technical-guide-to-password-cracking/#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="http://pedanticposts.com/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate>
+				<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required="required"></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required="required"></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"><input type="hidden" name="comment_post_ID" value="1357" id="comment_post_ID"><input type="hidden" name="comment_parent" id="comment_parent" value="0"></p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="668b5967c2"></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="171"></p>			</form>
+			</div>
+	
+</div>
+
+		
+		</main></div>
+
+	</div>
+
+	<footer id="colophon" class="site-footer" role="contentinfo"><div class="site-info">
+			<a href="http://wordpress.org/">Proudly powered by WordPress</a>
+			<span class="sep"> | </span>
+			Theme: Fictive by <a href="https://wordpress.com/themes/" rel="designer">WordPress.com</a>.		</div>
+	</footer></div>
+
+<script type="text/javascript" src="http://pedanticposts.com/wp-content/themes/fictive/js/fictive.js"></script><script type="text/javascript" src="http://pedanticposts.com/wp-content/themes/fictive/js/skip-link-focus-fix.js"></script><script async="async" type="text/javascript" src="http://pedanticposts.com/wp-content/plugins/akismet/_inc/form.js"></script></body></html>
